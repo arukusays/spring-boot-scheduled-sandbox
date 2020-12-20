@@ -1,0 +1,20 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:task="http://www.springframework.org/schema/task"
+xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+    <task:scheduled-tasks scheduler="myScheduler">
+        <task:scheduled ref="my01Task" method="reportCurrentTime" fixed-delay="3000" initial-delay="1000"/>
+        <task:scheduled ref="my02Task" method="reportCurrentTime" fixed-delay="3000" initial-delay="1000"/>
+    </task:scheduled-tasks>
+
+    <task:scheduler id="myScheduler" pool-size="1"/>
+    <bean id="my01Task" class="com.example.demo.MyScheduledTask">
+        <constructor-arg value="hoge"/>
+    </bean>
+    <bean id="my02Task" class="com.example.demo.MyScheduledTask">
+        <constructor-arg value="foo"/>
+    </bean>
+</beans>
